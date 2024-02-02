@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  width: 100%;
+}
+
+body {
+  font-family: "Merriweather", serif;
+  font-size: 1.5rem;
+}
+
+.explainer-section {
+  background-color: #caa6a6;
+  height: 15rem;
+}
+
+.main-section .game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 5rem;
+}
+.main-section .game-container .word-box {
+  display: flex;
+  gap: 1.5rem;
+}
+.main-section .game-container .word-box p {
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.main-section .game-container .input-box {
+  display: flex;
+  gap: 1rem;
+}
+.main-section .game-container .input-box input {
+  padding: 0.4rem;
+}
+.main-section .game-container .input-box #letterInput {
+  width: 4rem;
+  text-align: center;
+}
+.main-section .game-container .status-text #statusText {
+  font-size: 0.8rem;
+}
+.main-section .game-container .game-status-info {
+  display: flex;
+  justify-content: center;
+}
+.main-section .game-container .game-status-info p {
+  display: flex;
+  font-size: 1rem;
+  gap: 1rem;
+}
+.main-section .game-container .game-status-info p #gameTries {
+  font-weight: 700;
+}/*# sourceMappingURL=style.css.map */

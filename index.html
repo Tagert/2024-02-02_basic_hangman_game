@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A simple Hangman game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="explainer-section"></header>
+
+    <main class="main-section">
+      <div class="game-container">
+        <div class="word-box"></div>
+
+        <div class="input-box">
+          <input
+            id="letterInput"
+            type="text"
+            maxlength="1"
+            onkeydown="return /[a-zA-Z]/i.test(event.key)"
+            style="text-transform: uppercase"
+          />
+          <input id="btn" type="button" value="Guess you letter" />
+        </div>
+
+        <div class="status-text">
+          <p id="statusText"></p>
+        </div>
+
+        <div class="game-status-info">
+          <p>Your guesses left:<span id="gameTries"></span></p>
+        </div>
+
+        <div class="game-status-info">
+          <p>
+            Letters that have already been attempted:<span
+              id="attemptedLetters"
+            ></span>
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
