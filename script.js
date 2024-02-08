@@ -6,43 +6,80 @@ const letterInput = document.getElementById("letterInput");
 const buttonCheck = document.getElementById("btn");
 const statusText = document.getElementById("statusText");
 const gameTriesNumText = document.getElementById("gameTries");
+const listTriedLetters = document.getElementById("listTriedLetters");
 
-const alreadyTriedLetter = [];
+let alreadyTriedLetter = [];
+let revealedLetters = [];
 let gameTries = 6;
 gameTriesNumText.innerText = gameTries;
 
-// task 1 (create variable of word which will be in guessing game)
-// task 2 render the letters on screen, which depend of letter status
-// task 3 (check every letter to find out which letter we are guessing)
-
 const words = "javascript";
+let wordsArray = [];
 
-const wordLettersObj = words.split("").map((n) => {
-  return {
-    letter: n,
-    isGuessed: false,
-    element: null,
-  };
-});
+const fetchApi = async () => {
+  try {
+    const res = await fetch(
+      "https://65bb606a52189914b5bbe878.mockapi.io/words"
+    );
+    const wordsList = await res.json();
+    wordsArray = wordsList.map((wordObj) => wordObj.wordToPlay);
+    return wordsArray;
+  } catch (error) {
+    console.error(`Download error: ${error.message}`);
+    return [];
+  }
+};
 
+const fetchDataAndStartGame = async () => {
+  await fetchApi();
+  renderLetters(getRandomWord());
+};
+
+const getRandomWord = () => {
+  const randomIndex = Math.floor(Math.random() * wordsArray.length);
+  return wordsArray[randomIndex];
+};
+
+const wordLettersObj = [];
 let pastLetterIndex;
 let selectedLetterIndex;
 
-const renderLetters = () => {
+const renderLetters = (word) => {
   wordContainer.innerHTML = "";
+  wordLettersObj.length = 0;
 
-  wordLettersObj.forEach((lettersObj, i) => {
+  word.split("").forEach((letter, i) => {
     const letterParagraph = document.createElement("p");
+
+    console.log(letter);
+
+    const lettersObj = {
+      letter: letter,
+      isGuessed: false,
+      element: letterParagraph,
+    };
 
     if (i === 0 || lettersObj.isGuessed === true) {
       letterParagraph.innerText = lettersObj.letter;
+      lettersObj.isGuessed = true;
+      revealedLetters.push(lettersObj.letter.toUpperCase());
     } else {
       letterParagraph.innerText = "_";
     }
 
     wordContainer.append(letterParagraph);
-    lettersObj.element = letterParagraph;
+    wordLettersObj.push(lettersObj);
   });
+};
+
+const checkStatusWin = () => {
+  const isWin = wordLettersObj.every((lettersObj) => lettersObj.isGuessed);
+
+  if (isWin) {
+    statusText.innerText = "Congratulations! You've won!";
+    statusText.style.color = "green";
+    setTimeout(gameOver, 4000);
+  }
 };
 
 const guessTheLetter = () => {
@@ -58,20 +95,21 @@ const guessTheLetter = () => {
     });
 
     if (correctGuess) {
-      statusText.innerText = "Congrats! You revealed a letter.";
-      statusText.style.color = "green";
-    } else {
-      statusText.innerText = "Wrong letter. Try guessing again.";
+      correctLetters();
+      checkStatusWin();
+      letterInput.value = "";
+    } else if (letterInput.value === "") {
+      statusText.innerText = "Try to write a letter. To play the game";
       statusText.style.color = "red";
-      gameTries--;
-      gameTriesNumText.innerText = gameTries;
+    } else {
+      attemptedLetters();
     }
 
     if (gameTries <= 0) {
-      gameOver();
+      statusText.innerText = "Sorry it's game over for you.";
+      statusText.style.color = "red";
+      setTimeout(gameOver, 4000);
     }
-
-    attemptedLetters();
   });
 };
 
@@ -83,14 +121,55 @@ const gameOver = () => {
     letterObj.isGuessed = false;
   });
 
+  letterInput.value = "";
   statusText.innerText = "";
+  listTriedLetters.innerText = "";
+  alreadyTriedLetter = [];
+  revealedLetters = [];
 
-  renderLetters();
+  renderLetters(getRandomWord());
 };
 
 const attemptedLetters = () => {
   const letterInputUpperCase = letterInput.value.toUpperCase();
-  alreadyTriedLetter.push(letterInputUpperCase);
+
+  if (
+    !alreadyTriedLetter.includes(letterInputUpperCase) &&
+    letterInput.value !== ""
+  ) {
+    alreadyTriedLetter.push(letterInputUpperCase);
+    listTriedLetters.innerText = alreadyTriedLetter.join(" ,  ");
+    gameTries--;
+    gameTriesNumText.innerText = gameTries;
+    statusText.innerText = "Wrong letter. Try guessing again.";
+    statusText.style.color = "red";
+    letterInput.value = "";
+  } else {
+    statusText.innerText =
+      "You already tried this letter.  Please try guessing a different letter.";
+    statusText.style.color = "red";
+  }
+
+  console.log(alreadyTriedLetter);
+};
+
+const correctLetters = () => {
+  const letterInputUpperCase = letterInput.value.toUpperCase();
+
+  if (
+    !revealedLetters.includes(letterInputUpperCase) &&
+    letterInput.value !== ""
+  ) {
+    revealedLetters.push(letterInputUpperCase);
+    statusText.innerText = "Congrats! You revealed a letter.";
+    statusText.style.color = "green";
+  } else {
+    statusText.innerText =
+      "You already revealed this letter.  Please try guessing a different letter.";
+    statusText.style.color = "green";
+  }
+
+  console.log(revealedLetters);
 };
 
 // const guessTheLetter = () => {
@@ -115,5 +194,5 @@ const attemptedLetters = () => {
 //   });
 // };
 
-renderLetters();
 guessTheLetter();
+fetchDataAndStartGame();

@@ -4,24 +4,71 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A simple Hangman game</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="explainer-section"></header>
+    <header class="explainer-section">
+      <div class="explainer-container">
+        <div class="explainer-title">
+          <h1>
+            Welcome to a classic word - guessing game that offers two modes for
+            players: Easy and Hard.
+          </h1>
+        </div>
+
+        <div class="explainer-rules">
+          <div class="easy-mode">
+            <h2>Easy mode</h2>
+            <p>
+              In the easy mode, the player must guess a letter to locate it
+              within the predetermined word. Correct guesses will reveal the
+              exact positions of the letters in the word.
+            </p>
+          </div>
+
+          <div class="hard-mode">
+            <h2>Hard mode</h2>
+            <p>
+              In the hard mode of the game, player are required to click on an
+              empty symbol, which represents a blank space in the word.
+              Afterward, they need to guess the letter that corresponds to that
+              symbol. If their guess is correct, the letter will be revealed in
+              its respective positions in the word.
+            </p>
+          </div>
+        </div>
+
+        <div class="explainer-goal">
+          <div class="goal-description">
+            <h2>Goal</h2>
+            <p>
+              The objective in both game modes is to guess the complete word
+              correctly. An incorrect letter guess will lead to a decrement in
+              the guesses counter, and if the counter reaches zero, the game is
+              lost.
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
 
     <main class="main-section">
       <div class="game-container">
         <div class="word-box"></div>
 
         <div class="input-box">
+          <input id="btn" type="button" value="Guess a letter" />
           <input
             id="letterInput"
             type="text"
             maxlength="1"
             onkeydown="return /[a-zA-Z]/i.test(event.key)"
-            style="text-transform: uppercase"
+            placeholder="here..."
           />
-          <input id="btn" type="button" value="Guess you letter" />
         </div>
 
         <div class="status-text">
@@ -35,7 +82,7 @@
         <div class="game-status-info">
           <p>
             Letters that have already been attempted:<span
-              id="attemptedLetters"
+              id="listTriedLetters"
             ></span>
           </p>
         </div>

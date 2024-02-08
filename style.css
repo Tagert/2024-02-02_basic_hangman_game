@@ -14,13 +14,70 @@ svg {
 }
 
 body {
-  font-family: "Merriweather", serif;
-  font-size: 1.5rem;
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.4rem;
 }
 
 .explainer-section {
-  background-color: #caa6a6;
-  height: 15rem;
+  border: 2px solid rgb(64, 162, 227);
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 2rem;
+  background: radial-gradient(circle, rgb(64, 162, 227) 0%, rgb(255, 246, 233) 100%);
+}
+.explainer-section .explainer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.explainer-section .explainer-container .explainer-title h1 {
+  text-align: center;
+  font-size: 1.3rem;
+}
+.explainer-section .explainer-container .explainer-rules {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 2rem;
+}
+.explainer-section .explainer-container .explainer-rules .easy-mode,
+.explainer-section .explainer-container .explainer-rules .hard-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 38rem;
+}
+.explainer-section .explainer-container .explainer-rules .easy-mode h2,
+.explainer-section .explainer-container .explainer-rules .hard-mode h2 {
+  font-size: 1rem;
+}
+.explainer-section .explainer-container .explainer-rules .easy-mode p,
+.explainer-section .explainer-container .explainer-rules .hard-mode p {
+  font-size: 0.8rem;
+  text-align: justify;
+  line-height: 1.5rem;
+}
+.explainer-section .explainer-container .explainer-rules .hard-mode h2 {
+  text-align: right;
+}
+.explainer-section .explainer-container .explainer-goal {
+  display: flex;
+  align-self: center;
+  max-width: 38rem;
+}
+.explainer-section .explainer-container .explainer-goal .goal-description {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.explainer-section .explainer-container .explainer-goal .goal-description h2 {
+  text-align: center;
+  font-size: 1rem;
+}
+.explainer-section .explainer-container .explainer-goal .goal-description p {
+  font-size: 0.8rem;
+  text-align: justify;
+  line-height: 1.5rem;
 }
 
 .main-section .game-container {
@@ -44,7 +101,23 @@ body {
   gap: 1rem;
 }
 .main-section .game-container .input-box input {
-  padding: 0.4rem;
+  font-size: 0.5rem;
+  font-family: "Press Start 2P", cursive;
+  border-radius: 0.4rem;
+  padding: 0.6rem;
+}
+.main-section .game-container .input-box input[type=text] {
+  text-transform: capitalize;
+}
+.main-section .game-container .input-box input::-moz-placeholder {
+  text-transform: capitalize;
+  font-size: 0.5rem;
+  font-family: "Press Start 2P", cursive;
+}
+.main-section .game-container .input-box input::placeholder {
+  text-transform: capitalize;
+  font-size: 0.5rem;
+  font-family: "Press Start 2P", cursive;
 }
 .main-section .game-container .input-box #letterInput {
   width: 4rem;
@@ -59,9 +132,12 @@ body {
 }
 .main-section .game-container .game-status-info p {
   display: flex;
-  font-size: 1rem;
+  font-size: 0.9rem;
   gap: 1rem;
 }
 .main-section .game-container .game-status-info p #gameTries {
+  font-weight: 700;
+}
+.main-section .game-container .game-status-info p #listTriedLetters {
   font-weight: 700;
 }/*# sourceMappingURL=style.css.map */
