@@ -19,7 +19,7 @@ let wordsArray = [];
 const fetchApi = async () => {
   try {
     const res = await fetch(
-      "https://65bb606a52189914b5bbe878.mockapi.io/words"
+      "https://api.mockfly.dev/mocks/27dcb470-c104-490a-88ce-d4ad14ed8132/words"
     );
     const wordsList = await res.json();
     wordsArray = wordsList.map((wordObj) => wordObj.wordToPlay);
